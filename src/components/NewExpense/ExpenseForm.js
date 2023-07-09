@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = (props) => {
     const [enteredTitle, setEnteredTitle] = useState('');
     const [enteredAmount, setEnteredAmount] = useState('');
     const [enteredDate, setEnteredDate] = useState('');
@@ -42,15 +42,15 @@ const ExpenseForm = () => {
         // });
     };
 
-    const inutChangehandler = (identifier, value) => {
-        if ( identifier === 'title') {
-            setEnteredTitle(value);
-        } else if ( identifier === 'date') {
-            setEnteredDate(value);
-        } else {
-            setEnteredAmount(value);
-        }
-    };
+    // const inutChangehandler = (identifier, value) => {
+    //     if ( identifier === 'title') {
+    //         setEnteredTitle(value);
+    //     } else if ( identifier === 'date') {
+    //         setEnteredDate(value);
+    //     } else {
+    //         setEnteredAmount(value);
+    //     }
+    // };
 
     const submitHandler = (event) => {
         event.preventDefault();
@@ -61,7 +61,12 @@ const ExpenseForm = () => {
             amount: enteredAmount
         };
 
-        console.log(expenseData);
+        // console.log(expenseData);
+        props.onSaveExpenseData(expenseData);
+
+        setEnteredTitle('');
+        setEnteredDate('');
+        setEnteredAmount('');
     };
 
     return (
@@ -69,17 +74,18 @@ const ExpenseForm = () => {
             <div className="new-expense__controls">
                 <div className="new-expense__control">
                     <label>Title</label>
-                    <input type="text" onChange={ (event) => inutChangehandler('title', event.target.value) } ></input>
+                    <input type="text" value={enteredTitle} onChange={titleChangeHandler} ></input>
+                    {/* onChange={ (event) => inutChangehandler('title', event.target.value) } */}
                 </div>
 
                 <div className="new-expense__control">
                     <label>Amount</label>
-                    <input type="number" min="0.01" step="0.01" onChange={ (event) => { inutChangehandler('amount', event.target.value); } } ></input>
+                    <input type="number" min="0.01" value={enteredAmount} step="0.01" onChange={amountChangeHandler} ></input>
                 </div>
 
                 <div className="new-expense__control">
                     <label>Date</label>
-                    <input type="date" min="2021-01-01" max="2023-07-31" onChange={ (event) => { inutChangehandler('date', event.target.value) } } ></input>
+                    <input type="date" min="2021-01-01" value={enteredDate} max="2023-07-31" onChange={dateChangeHandler} ></input>
                 </div>
 
                 <div className="new-expense__actions">
