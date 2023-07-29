@@ -10,6 +10,7 @@
   font-weight: bold;
   margin-bottom: 0.5rem;
   display: block;
+  color: #ccc;
 }
 
 .new-expense__control input {
